@@ -1,0 +1,174 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <changeSet author="satheesh" id="1636908198823-1">
+        <createTable tableName="dbo.Actions">
+            <column autoIncrement="true" name="Id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="ActionId" type="CHAR(36)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="Name" type="VARCHAR(250)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="satheesh" id="1636908198823-2">
+        <createTable tableName="dbo.Fingerprint">
+            <column autoIncrement="true" name="Id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="FingerprintId" type="CHAR(36)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="NmlsId" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="StateId" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="CreatedDate" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="UpdatedDate" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CreatedById" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LastUpdatedById" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ExpirationDate" type="datetime"/>
+            <column name="RenewalDate" type="datetime"/>
+            <column name="IsActive" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="satheesh" id="1636908198823-3">
+        <createTable tableName="dbo.ScheduleSites">
+            <column autoIncrement="true" name="Id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="ScheduleSiteId" type="CHAR(36)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="Name" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="IsActive" type="BIT(1)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="satheesh" id="1636908198823-4">
+        <createTable tableName="dbo.Schedules">
+            <column autoIncrement="true" name="Id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="ScheduleId" type="CHAR(36)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="FingerPrintId" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ScheduleDate" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ScheduleSiteId" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ActionId" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="CreatedDate" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CreatedById" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="LastUpdatedDate" type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LastUpdatedById" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="satheesh" id="1636908198823-5">
+        <createTable tableName="dbo.States">
+            <column autoIncrement="true" name="Id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="StateId" type="CHAR(36)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="Name" type="LONGTEXT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="satheesh" id="1636908198823-6">
+        <createTable tableName="dbo.Tests">
+            <column autoIncrement="true" name="Id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="Name" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TestingName2" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="testId" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="satheesh" id="1636908198823-7">
+        <createTable tableName="dbo.__MyMigrationsHistory">
+            <column name="MigrationId" type="VARCHAR(150)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="ProductVersion" type="VARCHAR(32)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="satheesh" id="1636908198823-8">
+        <createIndex indexName="IX_Fingerprint_StateId" tableName="dbo.Fingerprint">
+            <column name="StateId"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="satheesh" id="1636908198823-9">
+        <createIndex indexName="IX_Schedules_ActionId" tableName="dbo.Schedules">
+            <column name="ActionId"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="satheesh" id="1636908198823-10">
+        <createIndex indexName="IX_Schedules_FingerPrintId" tableName="dbo.Schedules">
+            <column name="FingerPrintId"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="satheesh" id="1636908198823-11">
+        <createIndex indexName="IX_Schedules_ScheduleSiteId" tableName="dbo.Schedules">
+            <column name="ScheduleSiteId"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="satheesh" id="1636908198823-12">
+        <createIndex indexName="IX_Tests_testId" tableName="dbo.Tests">
+            <column name="testId"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="satheesh" id="1636908198823-13">
+        <addForeignKeyConstraint baseColumnNames="StateId" baseTableName="dbo.Fingerprint" constraintName="FK_Fingerprint_States_StateId" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="RESTRICT" referencedColumnNames="Id" referencedTableName="dbo.States" validate="true"/>
+    </changeSet>
+    <changeSet author="satheesh" id="1636908198823-14">
+        <addForeignKeyConstraint baseColumnNames="ActionId" baseTableName="dbo.Schedules" constraintName="FK_Schedules_Actions_ActionId" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="RESTRICT" referencedColumnNames="Id" referencedTableName="dbo.Actions" validate="true"/>
+    </changeSet>
+    <changeSet author="satheesh" id="1636908198823-15">
+        <addForeignKeyConstraint baseColumnNames="FingerPrintId" baseTableName="dbo.Schedules" constraintName="FK_Schedules_Fingerprint_FingerPrintId" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="RESTRICT" referencedColumnNames="Id" referencedTableName="dbo.Fingerprint" validate="true"/>
+    </changeSet>
+    <changeSet author="satheesh" id="1636908198823-16">
+        <addForeignKeyConstraint baseColumnNames="ScheduleSiteId" baseTableName="dbo.Schedules" constraintName="FK_Schedules_ScheduleSites_ScheduleSiteId" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="RESTRICT" referencedColumnNames="Id" referencedTableName="dbo.ScheduleSites" validate="true"/>
+    </changeSet>
+    <changeSet author="satheesh" id="1636908198823-17">
+        <addForeignKeyConstraint baseColumnNames="testId" baseTableName="dbo.Tests" constraintName="FK_Tests_Tests_testId" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="Id" referencedTableName="dbo.Tests" validate="true"/>
+    </changeSet>
+</databaseChangeLog>
